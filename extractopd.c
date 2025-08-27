@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
+#include "version.h"
 
 #define NR_TRACKS	40
 #define NR_SECTORS	18
@@ -23,8 +24,19 @@ uint8_t chksum(uint8_t *data, uint32_t len, uint8_t val) {
 	return val;
 }
 
+const static char usage[] = 
+	"ExtractOPD - Microjack '25 "VERSION"\n\n"
+	"Extracts OPD files to a set of single file .TAPs and a script for use with MkDisk.\n\n"
+	"usage:\n"
+	"\tExtractOPD disk.opd\n\n";
+
 int main(int argc, char **argv) {
 	FILE *f, *ds;
+
+	if (argc < 2) {
+		printf("%s\n", usage);
+		return 1;
+	}
 
 	f = fopen(argv[1], "rb");
 	if (!f) {

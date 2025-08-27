@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
+#include "version.h"
 
 #define NR_TRACKS	40
 #define NR_SECTORS	18
@@ -114,7 +115,22 @@ void readTapFilesFromScript(char *script) {
 	}
 }
 
+const static char usage[] = 
+	"MkDisk - Microjack '25 "VERSION"\n\n"
+	"Compiles a 180Kb Opus Discovery disk from a set of single file .TAPs, either from a list\n"
+	"on the command line, or from a provided or modified script from ExtractOPD.\n"
+	"usage:\n"
+	"\tMkDisk <diskname> <file1.tap> <file2.tap> <file3.tap>; or\n"
+	"\tMkDisk <diskname> @<script>\n\n";
+
 int main(int argc, char **argv) {
+	if (argc < 3) {
+		printf("%s\n", usage);
+		return 1;
+	}
+
+
+
 	int disknameLen = strlen(argv[1]);
 
 	if (disknameLen > 10) {
