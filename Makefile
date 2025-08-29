@@ -1,5 +1,5 @@
 
-targets=mkdisk extractopd mkdisk.exe extractopd.exe data2tap data2tap.exe tap2data tap2data.exe
+targets=mkdisk extractopd mkdisk.exe extractopd.exe data2tap data2tap.exe tap2data tap2data.exe nlcomp nlcomp.exe nldecomp nldecomp.exe
 
 default: ${targets}
 
@@ -30,6 +30,18 @@ tap2data: tap2data.c
 	gcc -o$@ $<
 
 tap2data.exe: tap2data.c
+	x86_64-w64-mingw32-gcc -o$@ $<
+
+nlcomp: nlcomp.c
+	gcc -o$@ $<
+
+nlcomp.exe: nlcomp.c
+	x86_64-w64-mingw32-gcc -o$@ $<
+
+nldecomp: nldecomp.c
+	gcc -o$@ $<
+
+nldecomp.exe: nldecomp.c
 	x86_64-w64-mingw32-gcc -o$@ $<
 
 clean:
