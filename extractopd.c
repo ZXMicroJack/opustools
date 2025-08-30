@@ -63,12 +63,14 @@ int main(int argc, char **argv) {
 
 
 	strcpy(fn, argv[1]);
-	int q = strlen(fn);
+	int q = strlen(fn) - 1;
 	char *s = fn + strlen(fn) - 1;
 	while (*s != '.' && q) { q--; s--; }
 	strcpy(s, ".txt");
 	while (*s != '/' && q) { q--; s--; }
 	if (*s == '/') s++;
+
+  printf("drive script name : %s\n", s);
 
 	ds = fopen(s, "w");
 

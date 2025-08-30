@@ -53,7 +53,7 @@ int main(int argc, const char **argv) {
   ipos ++;
   while (ipos < uncompLen) {
     fwrite(&data[ipos], 1, 64, f);
-    // fputc('\n', f);
+    fputc('\n', f);
     ipos += 64;
   }
 

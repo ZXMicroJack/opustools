@@ -37,6 +37,11 @@ int main(int argc, const char **argv) {
   uint16_t len;
   char name[11];
 
+  if (argc < 2) {
+    printf("usage: data2tap <datafile> <name> <address> <output.tap>\n");
+    return 1;
+  }
+
   f = fopen(argv[1], "rb");
   if (!f) { printf("cannot open data file\n"); return 1; }
   len = fread(data, 1, sizeof data, f);

@@ -12,6 +12,11 @@ int main(int argc, const char **argv) {
   uint16_t len;
   char name[11];
 
+  if (argc < 2) {
+    printf("usage: tap2data <input.tap> <output.dat>\n");
+    return 1;
+  }
+
   f = fopen(argv[1], "rb");
   if (!f) { printf("cannot open tap file\n"); return 1; }
   len = fread(data, 1, sizeof data, f);
