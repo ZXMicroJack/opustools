@@ -64,13 +64,13 @@ int main(int argc, const char **argv) {
   fputc(nrPages, f);
   fputc(0x00, f);
 
-  uint8_t nrLen = 0;
+  uint16_t nrLen = 0;
   for (int i=0; i<len; i++) {
     if (data[i] == ' ') {
       nrLen ++;
-      if (nrLen == 255) {
-        out[outLen++] = nrLen;
-        out[outLen++] = 0xc0;
+      if (nrLen == 0xfff) {
+        out[outLen++] = nrLen & 0xff;
+        out[outLen++] = 0xc0 | (nrLen >> 8);
         nrLen = 0;
       }
     }
@@ -79,8 +79,8 @@ int main(int argc, const char **argv) {
       out[outLen++] = data[i];
       nrLen = 0;
     } else if (nrLen > 1) {
-      out[outLen++] = nrLen;
-      out[outLen++] = 0xc0;
+      out[outLen++] = nrLen & 0xff;
+      out[outLen++] = 0xc0 | (nrLen >> 8);
       out[outLen++] = data[i];
       nrLen = 0;
     } else {
@@ -89,8 +89,8 @@ int main(int argc, const char **argv) {
   }
 
   if (nrLen) {
-    out[outLen++] = nrLen;
-    out[outLen++] = 0xc0;
+    out[outLen++] = nrLen & 0xff;
+    out[outLen++] = 0xc0 | (nrLen >> 8);
   }
   
   compLen = outLen + 25905 + 0x63;
